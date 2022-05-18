@@ -8,6 +8,7 @@ import SignUp from './Pages/SignIn/SignUp';
 import ToDo from './Pages/ToDo/ToDo';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import RequireAuth from './Pages/Shared/RequireAuth';
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
         <Route path='/' element={<Home></Home>}></Route>
         <Route path='/home' element={<Home></Home>}></Route>
         <Route path='/mytask' element={<MyTask></MyTask>}></Route>
-        <Route path='/todo' element={<ToDo></ToDo>}></Route>
+        <Route path='/todo' element={<RequireAuth><ToDo></ToDo></RequireAuth>}></Route>
         <Route path='/signin' element={<SignIn></SignIn>}></Route>
         <Route path='/signup' element={<SignUp></SignUp>}></Route>
       </Routes>

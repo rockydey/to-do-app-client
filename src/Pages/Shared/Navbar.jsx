@@ -1,7 +1,14 @@
+import { signOut } from 'firebase/auth';
 import React from 'react';
+import { useAuthState } from 'react-firebase-hooks/auth';
 import { Link } from 'react-router-dom';
+import auth from '../../firebase.init';
 
 const Navbar = () => {
+    const [user] = useAuthState(auth);
+    const logout = () => {
+        signOut(auth);
+    };
     return (
         <div className="navbar bg-base-100">
             <div className="navbar-start">
@@ -12,8 +19,10 @@ const Navbar = () => {
                     <ul tabindex="0" className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
                         <li><Link className='text-lg' to='/home'>Home</Link></li>
                         <li><Link className='text-lg' to='/todo'>ToDo</Link></li>
-                        <li><Link className='text-lg' to='/mytask'>My Task</Link></li>
-                        <li><Link className='text-lg' to='/signin'>SignIn</Link></li>
+                        {
+                            user ? <li><Link className='text-lg' to='/mytask'>My Task</Link></li> : ''
+                        }
+                        <li>{user ? <button onClick={logout} className='btn btn-ghost'>Sign Out</button> : <Link className='text-lg' to='/signin'>SignIn</Link>}</li>
                     </ul>
                 </div>
                 <Link to='/' className="btn btn-ghost normal-case text-3xl">Daily <span className='text-green-500 ml-2'>Activity</span></Link>
@@ -22,8 +31,10 @@ const Navbar = () => {
                 <ul className="menu menu-horizontal p-0">
                     <li><Link className='text-lg' to='/home'>Home</Link></li>
                     <li><Link className='text-lg' to='/todo'>ToDo</Link></li>
-                    <li><Link className='text-lg' to='/mytask'>My Task</Link></li>
-                    <li><Link className='text-lg' to='/signin'>SignIn</Link></li>
+                    {
+                        user ? <li><Link className='text-lg' to='/mytask'>My Task</Link></li> : ""
+                    }
+                    <li>{user ? <button onClick={logout} className='btn btn-ghost text-lg font-normal'>Sign Out</button> : <Link className='text-lg' to='/signin'>SignIn</Link>}</li>
                 </ul>
             </div>
         </div>
