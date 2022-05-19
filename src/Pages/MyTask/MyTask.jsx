@@ -4,14 +4,14 @@ import Task from './Task';
 const MyTask = () => {
     const [myTask, setMyTask] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:5000/mytask')
+        fetch('https://evening-springs-85561.herokuapp.com/mytask')
             .then(res => res.json())
             .then(data => {
                 setMyTask(data);
             })
     }, []);
     const handleDelete = id => {
-        const url = `http://localhost:5000/mytask/${id}`;
+        const url = `https://evening-springs-85561.herokuapp.com/mytask/${id}`;
         fetch(url, {
             method: "DELETE"
         })
